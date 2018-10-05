@@ -46,9 +46,9 @@ CREATE TABLE "book_index" (
 
 
 
-ALTER TABLE "slides" ADD CONSTRAINT "slides_fk0" FOREIGN KEY ("song_id") REFERENCES "songs"("id");
+ALTER TABLE "slides" ADD CONSTRAINT "fk_song_id" FOREIGN KEY ("song_id") REFERENCES "songs"("id");
 
 
-ALTER TABLE "book_index" ADD CONSTRAINT "book_index_fk0" FOREIGN KEY ("book_id") REFERENCES "books"("id");
-ALTER TABLE "book_index" ADD CONSTRAINT "book_index_fk1" FOREIGN KEY ("song_id") REFERENCES "songs"("id");
+ALTER TABLE "book_index" ADD CONSTRAINT "fk_ book_id" FOREIGN KEY ("book_id") REFERENCES "books"("id");
+ALTER TABLE "book_index" ADD CONSTRAINT "fk_song_id" FOREIGN KEY ("song_id") REFERENCES "songs"("id");
 
