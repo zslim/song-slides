@@ -17,7 +17,7 @@ get_song_numbers <- function(titles) {
 }
 
 strip_leading_whitespace <- function(char_vector) {
-    return(sub("^ ?", "", char_vector))
+    return(sub("^ +", "", char_vector))
 }
 # the yellow & green books don't have song titles so there first lines need to be extracted as titles
 get_song_titles <- function(titles) { 
@@ -35,7 +35,7 @@ get_song_titles <- function(titles) {
 setwd("~/PycharmProjects/enekrend/data/data_scources/")
 # reading file
 
-file_path <- "kekkonyv.dtx"
+file_path <- "demo_kek.dtx"
 
 ## a fájlnak dalcímmel (>-vel kezdődő sorral) kell kezdődnie!
 raw_data <- scan(file_path, "character", sep = "\n", blank.lines.skip = F,
@@ -84,11 +84,11 @@ for (line in c(raw_data, ">")) {
 }
 songs$number_of_slides <- sapply(songs$slide_starts, length)
 # getting ids for songs
-songs$id <- rownames(songs)
+songs$id <- as.numeric(rownames(songs))
 # sorting columns in songs
 songs <- songs[c("id", "number", "title", "lyrics", "number_of_slides", "slide_starts")]
 ## cleaning up
-#rm(index, lyrics_of_song, line, new_title, num_of_lines, title_lines)
+rm(index, lyrics_of_song, line, new_number, num_of_lines, title_lines)
 
 # creating a table for slides
 slides <- as.data.frame(matrix(ncol = 2, nrow = 0))
@@ -109,3 +109,7 @@ slides$slide_number <- slide_number
 slides$id <- rownames(slides)
 slides <- slides[c("id", "song_id", "slide_number", "slide_first")]
 # works for the sample :)
+
+## cleaning up
+rm(file_path, i, j, k, raw_data, slide_number, get_song_numbers, get_song_titles, 
+   strip_leading_whitespace, slides_of_song)
