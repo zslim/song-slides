@@ -1,3 +1,9 @@
+# !! A kék könyv dtx-ét elkezdtem átnézni, sok dalnál betördeltem a sorokat
+# Végig kellene nézni dalonként, kottával, sorrendben.
+# hint: a 116-osnál vannak az első látványosan túl hosszú sorok
+# Amúgy a script működik, yay! :) - songs és slides táblákat állít elő
+# jöhet a következő tábla
+
 # Énekrend projekt, dtx feldolgozás
 # 2018.09.21.
 # Limbek Zsófia
@@ -29,7 +35,7 @@ get_song_titles <- function(titles) {
 setwd("~/PycharmProjects/enekrend/data/data_scources/")
 # reading file
 
-file_path <- "kekkonyv_mod.dtx"
+file_path <- "kekkonyv.dtx"
 
 ## a fájlnak dalcímmel (>-vel kezdődő sorral) kell kezdődnie!
 raw_data <- scan(file_path, "character", sep = "\n", blank.lines.skip = F,
