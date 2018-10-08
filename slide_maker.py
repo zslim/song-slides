@@ -1,5 +1,6 @@
 import PIL
 from PIL import Image, ImageDraw, ImageFont
+import data_manager
 
 
 def draw_slide(text, slide_size, font_size, path_to_save, path_to_font=None):
@@ -16,6 +17,11 @@ def draw_slide(text, slide_size, font_size, path_to_save, path_to_font=None):
 
     draw.text(text_starting_position, text, text_color, draw_font)
     new_image.save(path_to_save)
+
+
+def create_new_slides():
+    songs_to_slidify = data_manager.get_songs_with_no_slide()
+    pass
 
 
 if __name__ == '__main__':
