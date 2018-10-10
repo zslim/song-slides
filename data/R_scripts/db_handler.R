@@ -32,5 +32,5 @@ book_index_to_db <- data.frame(id = book_index_id, song_id = songs$id,
                                book_id = book_id_vector, song_number = songs$number, 
                                stringsAsFactors = FALSE)
 
-write_data_to_table(psql_connection, songs_to_db, "songs")
-write_data_to_table(psql_connection, book_index_to_db, "book_index")
+# write_data_to_table(psql_connection, songs_to_db, "songs") # számít a sorrend, mert a song id foreign key a book index táblában
+# write_data_to_table(psql_connection, book_index_to_db, "book_index")

@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 import data_manager
 
 
-def draw_slide(text, slide_size, font_size, path_to_save, path_to_font=None):
+def draw_slide(text, slide_size, size_of_font, path_to_save, path_to_font=None):
     text_color = "white"
     text_starting_position = (20, 30)
 
@@ -11,7 +11,7 @@ def draw_slide(text, slide_size, font_size, path_to_save, path_to_font=None):
     if path_to_font:
         font_name = path_to_font
 
-    draw_font = ImageFont.truetype(font_name, font_size)
+    draw_font = ImageFont.truetype(font_name, size_of_font)
     new_image = Image.new("L", slide_size)
     draw = ImageDraw.Draw(new_image)
 

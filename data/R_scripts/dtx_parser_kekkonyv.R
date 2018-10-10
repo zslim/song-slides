@@ -4,6 +4,11 @@
 # Amúgy a script működik, yay! :) - songs és slides táblákat állít elő
 # jöhet a következő tábla
 
+# ebben a scriptben kellene történnie az adatbázisba írásnak, a db_handler meghívásával
+# a song és slide id-knak figyelembe kellene venni a már az adatbázisba beírt id-kat
+# a slide-oknak talán nem is kell id-t adnom, majd ad nekik a postgres
+# DE ugye egyelőre még demo adatokon dolgozom.
+
 # Énekrend projekt, dtx feldolgozás
 # 2018.09.21.
 # Limbek Zsófia
