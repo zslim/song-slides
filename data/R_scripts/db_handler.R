@@ -34,3 +34,7 @@ book_index_to_db <- data.frame(id = book_index_id, song_id = songs$id,
 
 # write_data_to_table(psql_connection, songs_to_db, "songs") # számít a sorrend, mert a song id foreign key a book index táblában
 # write_data_to_table(psql_connection, book_index_to_db, "book_index")
+
+write.csv(slides[, c("song_id", "slide_number", "slide_first")], file = "../slides.csv",
+          row.names = FALSE, fileEncoding = "UTF-8")
+
