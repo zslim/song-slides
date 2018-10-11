@@ -21,7 +21,17 @@ def draw_slide(text, slide_size, size_of_font, path_to_save, path_to_font=None):
 
 def create_new_slides():
     songs_to_slidify = data_manager.get_songs_with_no_slide()
-    pass
+
+    slide_info_csv = "data/slides.csv"
+    slide_info = csv_handler.read_csv(slide_info_csv)
+
+    for dict_of_song in songs_to_slidify:
+        slides_of_song = [row for row in slide_info if row["song_id"] == dict_of_song["id"]]
+
+        for i in range(len(slides_of_song)):
+            first_line_current = slides_of_song[i][""]
+            text_of_slide = dict_of_song["lyrics"].splitlines()[]
+            pass
 
 
 if __name__ == '__main__':
