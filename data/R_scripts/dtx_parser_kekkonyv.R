@@ -58,16 +58,26 @@ songs <- data.frame(number = get_song_numbers(title_lines),
 
 songs$lyrics <- NA
 songs$slide_starts <- list(NA)
-lyrics_of_song <- list(number = NA, lyrics = NA, slide_starts = 1)
+songs$slide_ends <- list(NA)
+lyrics_of_song <- list(number = NA, lyrics = NA, slide_starts = 1, slide_ends = NA)
 # sorry about this massive non-R-ish loop
 for (line in c(raw_data, ">")) {
     if (substr(line, 1, 1) == ">") { # start of new song; writing last song into table
         if (!is.na(lyrics_of_song$number)) {
-            index <- which(songs$number == lyrics_of_song$number) # it would be better to filter by song number as it is unique
+            # saving number of last line
+            num_of_lines <- str_count(lyrics_of_song$lyrics, "\n")
+            if (all(is.na(lyrics_of_song$slide_ends))) { # end of first slide
+                lyrics_of_song$slide_ends <- num_of_lines
+            } else { # end of nth slide n != 1
+                lyrics_of_song$slide_ends <- c(lyrics_of_song$slide_ends, num_of_lines)
+            }
+            
+            index <- which(songs$number == lyrics_of_song$number)
             songs$lyrics[index] <- lyrics_of_song$lyrics
             songs$slide_starts[[index]] <- lyrics_of_song$slide_starts
+            songs$slide_ends[[index]] <- lyrics_of_song$slide_ends
             new_number <- get_song_numbers(line)
-            lyrics_of_song <- list(number = new_number, lyrics = NA, slide_starts = 1)
+            lyrics_of_song <- list(number = new_number, lyrics = NA, slide_starts = 1, slide_ends = NA)
         } else {
             lyrics_of_song$number <- get_song_numbers(line)
         }
@@ -78,12 +88,17 @@ for (line in c(raw_data, ">")) {
             lyrics_of_song$lyrics <- paste(lyrics_of_song$lyrics, "\n", sep = "")
             num_of_lines <- str_count(lyrics_of_song$lyrics, "\n")
             lyrics_of_song$slide_starts <- c(lyrics_of_song$slide_starts, num_of_lines)
+            if (all(is.na(lyrics_of_song$slide_ends))) { # end of first slide
+                lyrics_of_song$slide_ends <- num_of_lines - 1
+            } else { # end of nth slide n != 1
+                lyrics_of_song$slide_ends <- c(lyrics_of_song$slide_ends, num_of_lines - 1)
+            }
         }
     } else { # line of lyrics
         if (is.na(lyrics_of_song$lyrics)) { # first line on slide
             lyrics_of_song$lyrics <- paste0(line, "\n")
         } else {
-            lyrics_of_song$lyrics <- paste(lyrics_of_song$lyrics, line, "\n", sep = "")
+            lyrics_of_song$lyrics <- paste0(lyrics_of_song$lyrics, line, "\n")
         }
     }
 }
@@ -91,19 +106,20 @@ songs$number_of_slides <- sapply(songs$slide_starts, length)
 # getting ids for songs
 songs$id <- as.numeric(rownames(songs))
 # sorting columns in songs
-songs <- songs[c("id", "number", "title", "lyrics", "number_of_slides", "slide_starts")]
+songs <- songs[c("id", "number", "title", "lyrics", "number_of_slides", "slide_starts", "slide_ends")]
 ## cleaning up
 rm(index, lyrics_of_song, line, new_number, num_of_lines, title_lines)
 
 # creating a table for slides
-slides <- as.data.frame(matrix(ncol = 2, nrow = 0))
+slides <- as.data.frame(matrix(ncol = 3, nrow = 0))
 for(i in 1:nrow(songs)) {
-    for (j in songs$slide_starts[[i]]) {
+    for (j in 1:length(songs$slide_starts[[i]])) {
         slides[nrow(slides) + 1, 1] <- songs$id[i]
-        slides[nrow(slides), 2] <- j
+        slides[nrow(slides), 2] <- songs$slide_starts[[i]][j]
+        slides[nrow(slides), 3] <- songs$slide_ends[[i]][j]
     }
 }
-names(slides) <- c("song_id", "slide_first")
+names(slides) <- c("song_id", "slide_first", "slide_last")
 ## saving slide numbers
 slide_number <- numeric()
 for (k in unique(slides$song_id)){
@@ -112,7 +128,7 @@ for (k in unique(slides$song_id)){
 }
 slides$slide_number <- slide_number
 slides$id <- rownames(slides)
-slides <- slides[c("id", "song_id", "slide_number", "slide_first")]
+slides <- slides[c("id", "song_id", "slide_number", "slide_first", "slide_last")]
 # works for the sample :)
 
 ## cleaning up
