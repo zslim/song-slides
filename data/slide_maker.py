@@ -21,7 +21,7 @@ def draw_slide(text, slide_size, size_of_font, path_to_save, path_to_font=None):
 
 
 def create_new_slides():
-    songs_to_slidify = data_manager.get_songs_with_no_slide()
+    songs_to_slidify = data_manager.get_songs_without_slides()
 
     slide_info_csv = "data/slides.csv"
     slide_info = csv_handler.read_csv(slide_info_csv)
