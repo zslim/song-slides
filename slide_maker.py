@@ -1,6 +1,7 @@
-import PIL
 from PIL import Image, ImageDraw, ImageFont
 import data_manager
+import csv_handler
+import utils
 
 
 def draw_slide(text, slide_size, size_of_font, path_to_save, path_to_font=None):
@@ -25,19 +26,26 @@ def create_new_slides():
     slide_info_csv = "data/slides.csv"
     slide_info = csv_handler.read_csv(slide_info_csv)
 
+    slide_arguments = {"slide_size": (720, 520), "size_of_font": 38}
+
     for dict_of_song in songs_to_slidify:
         slides_of_song = [row for row in slide_info if row["song_id"] == dict_of_song["id"]]
 
         for i in range(len(slides_of_song)):
-            first_line_current = slides_of_song[i][""]
-            text_of_slide = dict_of_song["lyrics"].splitlines()[]
-            pass
+            current_slide = slides_of_song[i]
+            first_line = current_slide["slide_first"] - 1
+            last_line = current_slide["slide_last"]
+            text_of_slide = "\n".join(dict_of_song["lyrics"].splitlines()[first_line:last_line])
+            fancy_text = utils.strip_newlines_from_edges(text_of_slide)
+
+            path_of_slide = f"static/images/slides/song_{dict_of_song['id']}_slide_{current_slide['slide_number']}.png"
+            draw_slide(fancy_text, path_to_save=path_of_slide, **slide_arguments)
+
+            slide_data = {"song_id": current_slide["song_id"],
+                          "slide_number": current_slide["slide_number"],
+                          "path": path_of_slide}
+            data_manager.save_new_slide(slide_data)
 
 
 if __name__ == '__main__':
-    lyrics = "1st row with exactly 40 characters here\n2nd row with exactly 40 characters here\n3rd row with exactly 40 characters here\n4th row with exactly 40 characters here\n5th row with exactly 40 characters here\n6th row with exactly 40 characters here\n7th row with exactly 40 characters here\n8th row with exactly 40 characters here\n9th row with exactly 40 characters here\n10th row with exactly 41 characters here\n"
-    img_size = (720, 520)
-    font_size = 38
-    img_path = "static/images/trial/trial5.png"
-
-    draw_slide(lyrics, img_size, font_size, img_path)
+    create_new_slides()
