@@ -1,5 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    Table of songs comes here!
+    <div class="container index-table-frame">
+        <table class="table">
+            {% for dict_of_song in list_of_songs %}
+            <tr>
+                <td>{{ dict_of_song["title"] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
