@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import data_manager
-import csv_handler
+from data import csv_handler
 import utils
 
 
