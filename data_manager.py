@@ -32,3 +32,20 @@ def get_songs_with_slides(cursor):
                     """)
     list_of_records = cursor.fetchall()
     return list_of_records
+
+
+@db_connection.connection_handler
+def get_slide_paths_by_song_id(cursor, tuple_of_song_ids):
+    cursor.execute("""
+                    SELECT path FROM slides
+                    JOIN unnest(%(array_of_song_ids)s::int[])
+                        WITH ORDINALITY t(id, ord)
+                        ON t.id = slides.song_id
+                    WHERE song_id IN %(list_of_song_ids)s
+                    ORDER BY t.ord, slide_number;
+                    """,
+                   {"array_of_song_ids": list(tuple_of_song_ids),
+                    "list_of_song_ids": tuple_of_song_ids})
+    query_result = cursor.fetchall()
+    list_of_slide_paths = [row["path"] for row in query_result]
+    return list_of_slide_paths
