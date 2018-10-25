@@ -54,7 +54,7 @@ def get_slide_paths_by_song_id(cursor, tuple_of_song_ids):
 @db_connection.connection_handler
 def get_song_details(cursor, song_id):
     cursor.execute("""
-                    SELECT songs.title, lyrics, b.title AS title_of_book, short_name, song_number
+                    SELECT songs.id AS song_id, songs.title, lyrics, b.title AS title_of_book, short_name, song_number
                     FROM songs 
                     JOIN book_index i on songs.id = i.song_id
                     JOIN books b on i.book_id = b.id

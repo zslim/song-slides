@@ -1,15 +1,24 @@
 {% extends "layout.html" %}
 
+{% block head %}
+    <script src="{{ url_for("static", filename="scripts/data_handler.js") }}" defer></script>
+    <script src="{{ url_for("static", filename="scripts/dom.js") }}" defer></script>
+    <script src="{{ url_for("static", filename="scripts/main.js") }}" defer></script>
+{% endblock %}
+
 {% block content %}
-    <div class="container index-table-frame">
+    <div class="container index-table-frame" data-root="{{ root_url }}">
 
         {% for dict_of_song in list_of_songs %}
             <div class="card">
-                <div class="card-header song-title collapsed" data-toggle="collapse" data-target="{{ "#song-" ~ dict_of_song["id"] ~ "-details" }}">
+                <div class="card-header song-title collapsed"
+                     data-toggle="collapse" data-target="{{ "#song-" ~ dict_of_song["id"] ~ "-details" }}"
+                     data-id="{{ dict_of_song["id"] }}">
                     <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}
                 </div>
                 <div class="card-body song-details collapse" id="{{ "song-" ~ dict_of_song["id"] ~ "-details" }}">
-                    <p>Details</p>
+                    <div class="song-details-book"><p></p></div>
+                    <div class="song-details-lyrics"></div>
                 </div>
             </div>
         {% endfor %}
