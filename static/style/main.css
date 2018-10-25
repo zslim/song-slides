@@ -1,3 +1,16 @@
 .index-table-frame {
     width: 80%;
 }
+h1 {
+    text-align: center;
+    margin: 20px auto;
+}
+.index-table-frame {
+    padding: 15px;
+}
+.song-title .chevron::after {
+    content: "\f078";
+}
+.song-title.collapsed .chevron::after {
+    content: "\f054";
+}
