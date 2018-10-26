@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response, jsonify, request
+from flask import Flask, render_template, make_response, jsonify, request, session
 import data_manager
 
 app = Flask(__name__)
@@ -17,7 +17,26 @@ def get_song_details(song_id):
     return jsonify(**song_details)
 
 
+@app.route("/api/collection/add-song", methods=["POST"])
+def add_song_to_collection():
+    new_song_data = request.form.to_dict()
+    if "collection" not in session:
+        session["collection"] = {new_song_data["place"]: new_song_data["id"]}
+    else:
+        session["collection"][new_song_data["place"]] = new_song_data["id"]
+    print("Song choice has been saved")
+    return make_response("Choice has been saved", 200)
+
+
+@app.route("/api/clear-collection", methods=["POST"])
+def clear_collection():
+    if "collection" in session:
+        session.pop("collection")
+    return make_response("Collection cleared", 200)
+
+
 if __name__ == '__main__':
+    app.secret_key = "Mr. Slade Wilson"
     app.run(
         host="0.0.0.0",
         port=4321,

@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 
+{% set add_song_url = url_for("add_song_to_collection") %}
+{% set clear_collection_url = url_for("clear_collection") %}
+
 {% block head %}
     <script src="{{ url_for("static", filename="scripts/init_page.js") }}" defer></script>
     <script src="{{ url_for("static", filename="scripts/collecting_songs.js") }}" defer></script>
@@ -7,7 +10,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container index-table-frame" data-root="{{ root_url }}">
+    <div class="container">
+        <button class="btn btn-danger" type="button" id="clear-collection-button">
+            Tiszta lap
+        </button>
+        <p>{{ session["collection"] }}</p>
+    </div>
+    <div class="container index-table-frame" data-root-url="{{ root_url }}"
+         data-add-song-url="{{ add_song_url }}" data-clear-collection-url="{{ clear_collection_url }}">
 
         {% for dict_of_song in list_of_songs %}
             <div class="card">

@@ -1,6 +1,14 @@
 initPage = {
-    getSongDetails: function (songId, rootUrl, callback) {
-        let apiUrl = `${rootUrl}api/song-details/${songId}`;
+    urls: {},
+    getUrls: function() {
+        let songsFrame = document.querySelector(".index-table-frame");
+        initPage.urls["root"] = songsFrame.dataset["rootUrl"];
+        initPage.urls["addSong"] = songsFrame.dataset["addSongUrl"];
+        initPage.urls["removeSong"] = songsFrame.dataset[""];
+        initPage.urls["clearCollection"] = songsFrame.dataset["clearCollectionUrl"];
+    },
+    getSongDetails: function (songId, callback) {
+        let apiUrl = `${initPage.urls["root"]}api/song-details/${songId}`;
         $.get(apiUrl, callback)
     },
     showSongDetails: function (data) {
@@ -11,14 +19,11 @@ initPage = {
         lyricsDiv.innerText = data["lyrics"];
     },
     initSongDetails: function () {
-        let songsContainer = document.querySelector(".index-table-frame");
-        let rootUrl = songsContainer.dataset["root"];
-
         let songTitleDivs = document.querySelectorAll(".song-title");
         for (let divElement of songTitleDivs) {
             let songId = divElement.dataset["id"];
             divElement.addEventListener("click", function () {
-                initPage.getSongDetails(songId, rootUrl, initPage.showSongDetails);
+                initPage.getSongDetails(songId, initPage.showSongDetails);
                 this.removeEventListener("click", arguments.callee);
             })
         }
