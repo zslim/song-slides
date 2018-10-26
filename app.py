@@ -24,7 +24,7 @@ def add_song_to_collection():
         session["collection"] = {new_song_data["place"]: new_song_data["id"]}
     else:
         session["collection"][new_song_data["place"]] = new_song_data["id"]
-    print("Song choice has been saved")
+    session.modified = True
     return make_response("Choice has been saved", 200)
 
 
