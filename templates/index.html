@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 {% block head %}
-    <script src="{{ url_for("static", filename="scripts/data_handler.js") }}" defer></script>
-    <script src="{{ url_for("static", filename="scripts/dom.js") }}" defer></script>
+    <script src="{{ url_for("static", filename="scripts/init_page.js") }}" defer></script>
+    <script src="{{ url_for("static", filename="scripts/collecting_songs.js") }}" defer></script>
     <script src="{{ url_for("static", filename="scripts/main.js") }}" defer></script>
 {% endblock %}
 
@@ -11,10 +11,31 @@
 
         {% for dict_of_song in list_of_songs %}
             <div class="card">
-                <div class="card-header song-title collapsed"
-                     data-toggle="collapse" data-target="{{ "#song-" ~ dict_of_song["id"] ~ "-details" }}"
-                     data-id="{{ dict_of_song["id"] }}">
-                    <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}
+                <div class="card-header d-flex justify-content-between">
+                    <div class="song-title flex-grow-1 collapsed"
+                         data-toggle="collapse" data-target="{{ "#song-" ~ dict_of_song["id"] ~ "-details" }}"
+                         data-id="{{ dict_of_song["id"] }}">
+                        <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-success dropdown-toggle choose-song-place-button" type="button" data-toggle="dropdown"
+                                id="{{ "song-" ~ dict_of_song["id"] ~ "-dropdown-button" }}">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Bevonulás</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Uram irgalmazz</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Dicsőség</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Olvasmányközi ének</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Alleluja</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Felajánlás</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Szent vagy</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Isten Báránya</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Áldozás</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Kivonulás</a>
+                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Egyéb</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body song-details collapse" id="{{ "song-" ~ dict_of_song["id"] ~ "-details" }}">
                     <div class="song-details-book"><p></p></div>
