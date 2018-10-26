@@ -12,7 +12,7 @@
 {% block content %}
     <div class="container">
         <button class="btn btn-danger" type="button" id="clear-collection-button">
-            Tiszta lap
+            Énekrend kiürítése
         </button>
         <p>{{ session["collection"] }}</p>
     </div>
@@ -22,7 +22,7 @@
         {% for dict_of_song in list_of_songs %}
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <div class="song-title flex-grow-1 collapsed"
+                    <div class="song-title flex-grow-1 collapsed vertically-centered"
                          data-toggle="collapse" data-target="{{ "#song-" ~ dict_of_song["id"] ~ "-details" }}"
                          data-id="{{ dict_of_song["id"] }}">
                         <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}

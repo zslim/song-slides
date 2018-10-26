@@ -14,3 +14,7 @@ h1 {
 .song-title.collapsed .chevron::after {
     content: "\f054";
 }
+.vertically-centered {
+    display: flex;
+    align-items: center;
+}
