@@ -2,13 +2,6 @@ songCollector = {
     init: function () {
         songCollector.initDropdownItems();
         songCollector.showCurrentCollection();
-        songCollector.initClearButton();
-    },
-    initClearButton: function () {
-        let clearButton = document.querySelector("#clear-collection-button");
-        clearButton.addEventListener("click", function () {
-            $.post(initPage.urls["clearCollection"]);
-        })
     },
     initDropdownItems: function () {
         let dropdownItems = document.querySelectorAll(".dropdown-item");

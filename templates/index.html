@@ -11,10 +11,11 @@
 
 {% block content %}
     <div class="container">
-        <button class="btn btn-danger" type="button" id="clear-collection-button">
+        <form action="{{ url_for("clear_collection") }}" method="post">
+            <button class="btn btn-danger" type="submit" id="clear-collection-button">
             Énekrend kiürítése
-        </button>
-        <p>{{ session["collection"] }}</p>
+            </button>
+        </form>
     </div>
     <div class="container index-table-frame" data-root-url="{{ root_url }}"
          data-add-song-url="{{ add_song_url }}" data-clear-collection-url="{{ clear_collection_url }}">

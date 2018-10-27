@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response, jsonify, request, session
+from flask import Flask, render_template, make_response, jsonify, request, session, redirect, url_for
 import data_manager
 
 app = Flask(__name__)
@@ -28,11 +28,11 @@ def add_song_to_collection():
     return make_response("Choice has been saved", 200)
 
 
-@app.route("/api/clear-collection", methods=["POST"])
+@app.route("/clear-collection", methods=["POST"])
 def clear_collection():
     if "collection" in session:
         session.pop("collection")
-    return make_response("Collection cleared", 200)
+    return redirect(url_for("index"))
 
 
 if __name__ == '__main__':
