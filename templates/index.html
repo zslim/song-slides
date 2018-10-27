@@ -10,15 +10,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <form action="{{ url_for("clear_collection") }}" method="post">
-            <button class="btn btn-danger" type="submit" id="clear-collection-button">
-            Énekrend kiürítése
-            </button>
-        </form>
-    </div>
     <div class="container index-table-frame" data-root-url="{{ root_url }}"
          data-add-song-url="{{ add_song_url }}" data-clear-collection-url="{{ clear_collection_url }}">
+        <form action="{{ url_for("clear_collection") }}" method="post" class="clear-collection-button-frame">
+            <button class="btn btn-danger" type="submit" id="clear-collection-button">
+                Énekrend kiürítése
+            </button>
+        </form>
 
         {% for dict_of_song in list_of_songs %}
             <div class="card">
