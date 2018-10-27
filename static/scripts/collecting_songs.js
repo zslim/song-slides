@@ -25,16 +25,18 @@ songCollector = {
     getCurrentCollection: function () {
         let bodyTag = document.querySelector("body");
         let collectionString = bodyTag.dataset["currentCollection"];
+        if (collectionString === "") collectionString = null;
         let collectionObject = JSON.parse(collectionString);
         return collectionObject;
     },
     showCurrentCollection: function () {
         let collection = songCollector.getCurrentCollection();
-        for (let item of collection) {
-            let songId = item["id"];
-            let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
-            songCollector.changeDropdownButton(dropdownButton, item["place"]);
-
+        if (collection != null) {
+            for (let item of collection) {
+                let songId = item["id"];
+                let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
+                songCollector.changeDropdownButton(dropdownButton, item["place"]);
+            }
         }
     }
 };
