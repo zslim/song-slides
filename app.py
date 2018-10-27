@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def index():
+def index():  # TODO: show which songs are selected if collection exists in session
     songs_to_list = data_manager.get_songs_with_slides()
     root_url = request.url_root
     return render_template("index.html", list_of_songs=songs_to_list, root_url=root_url)
@@ -21,9 +21,9 @@ def get_song_details(song_id):
 def add_song_to_collection():
     new_song_data = request.form.to_dict()
     if "collection" not in session:
-        session["collection"] = {new_song_data["place"]: new_song_data["id"]}
+        session["collection"] = [new_song_data]
     else:
-        session["collection"][new_song_data["place"]] = new_song_data["id"]
+        session["collection"].append(new_song_data)
     session.modified = True
     return make_response("Choice has been saved", 200)
 
