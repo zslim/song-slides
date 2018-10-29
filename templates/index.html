@@ -32,17 +32,12 @@
                             <i class="fas fa-plus"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"> <!-- TODO: put dropdown items into a loop -->
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Bevonulás</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Uram irgalmazz</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Dicsőség</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Olvasmányközi ének</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Alleluja</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Felajánlás</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Szent vagy</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Isten Báránya</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Áldozás</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Kivonulás</span>
-                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Egyéb</span>
+                            {% for item in list_of_places %}
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">{{ item }}</span>
+                            {% endfor %}
+
+                            <!-- <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Kiválasztás törlése</span> -->
+
                         </div>
                     </div>
                 </div>

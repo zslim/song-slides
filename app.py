@@ -5,10 +5,11 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def index():  # TODO: show which songs are selected if collection exists in session
+def index():
     songs_to_list = data_manager.get_songs_with_slides()
+    list_of_places = data_manager.get_song_places()
     root_url = request.url_root
-    return render_template("index.html", list_of_songs=songs_to_list, root_url=root_url)
+    return render_template("index.html", list_of_songs=songs_to_list, list_of_places=list_of_places, root_url=root_url)
 
 
 @app.route("/api/song-details/<song_id>")
