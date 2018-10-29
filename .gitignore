@@ -114,3 +114,6 @@ dmypy.json
 .idea/*
 .idea
 .idea/
+
+/data/data_scources/*
+data/data_scources/*
