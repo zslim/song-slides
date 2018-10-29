@@ -21,3 +21,9 @@ h1 {
 form.clear-collection-button-frame {
     margin: 10px auto;
 }
+span.dropdown-item {
+    cursor: pointer;
+}
+span.disabled {
+    cursor: not-allowed;
+}

@@ -29,6 +29,14 @@ def add_song_to_collection():
     return make_response("Choice has been saved", 200)
 
 
+@app.route("/api/collection/remove-song", methods=["POST"])
+def remove_song_from_collection():
+    song_id = request.form["id"]
+    session["collection"][:] = [song for song in session["collection"] if song["id"] != song_id]
+    session.modified = True
+    return make_response("Song cleared from collection", 200)
+
+
 @app.route("/clear-collection", methods=["POST"])
 def clear_collection():
     if "collection" in session:

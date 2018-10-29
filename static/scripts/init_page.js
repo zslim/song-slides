@@ -4,7 +4,7 @@ initPage = {
         let songsFrame = document.querySelector(".index-table-frame");
         initPage.urls["root"] = songsFrame.dataset["rootUrl"];
         initPage.urls["addSong"] = songsFrame.dataset["addSongUrl"];
-        initPage.urls["removeSong"] = songsFrame.dataset[""];
+        initPage.urls["removeSong"] = songsFrame.dataset["removeSongUrl"];
         initPage.urls["clearCollection"] = songsFrame.dataset["clearCollectionUrl"];
     },
     getSongDetails: function (songId, callback) {
