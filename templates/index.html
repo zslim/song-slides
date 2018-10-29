@@ -19,7 +19,7 @@
         </form>
 
         {% for dict_of_song in list_of_songs %}
-            <div class="card">
+            <div class="card" id="{{ "song-" ~ dict_of_song["id"] ~ "-card" }}">
                 <div class="card-header d-flex justify-content-between">
                     <div class="song-title flex-grow-1 collapsed vertically-centered"
                          data-toggle="collapse" data-target="{{ "#song-" ~ dict_of_song["id"] ~ "-details" }}"
@@ -32,17 +32,17 @@
                             <i class="fas fa-plus"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"> <!-- TODO: put dropdown items into a loop -->
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Bevonulás</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Uram irgalmazz</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Dicsőség</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Olvasmányközi ének</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Alleluja</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Felajánlás</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Szent vagy</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Isten Báránya</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Áldozás</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Kivonulás</a>
-                            <a href="#" class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Egyéb</a>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Bevonulás</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Uram irgalmazz</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Dicsőség</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Olvasmányközi ének</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Alleluja</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Felajánlás</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Szent vagy</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Isten Báránya</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Áldozás</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Kivonulás</span>
+                            <span class="dropdown-item" data-id="{{ dict_of_song["id"] }}">Egyéb</span>
                         </div>
                     </div>
                 </div>
