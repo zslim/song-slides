@@ -16,15 +16,20 @@ songCollector = {
                 let songInfo = {id: songId, title: songTitle, placeId: placeId, place: place};
                 $.post(initPage.urls["addSong"], songInfo, function () {
                     songCollector.enableDropFromCollection(songId);
-                    songCollector.changeDropdownButton(dropdownButton, place);
+                    songCollector.changeDropdownButton(dropdownButton, place, placeId);
                     songCollector.showSongOnCollectionTab(songTitle, placeId);
                 });
             })
         }
     },
-    showSongOnCollectionTab: function (songTitle, placeId) {
+    showSongOnCollectionTab: function (songTitle, songId, placeId) {
         let songTitleFrame = document.querySelector(`#collection-tab-row-${placeId} .song-title-frame`);
         songTitleFrame.innerText = songTitle;
+        songTitleFrame.id = `song-${songId}-on-place-${placeId}`;
+    },
+    deleteSongFromCollectionTab: function (songId, placeId) {
+        let divToEmpty = document.querySelector(`#song-${songId}-on-place-${placeId}`);
+        divToEmpty.innerText = "";
     },
     initDropSongItems: function () {  // TODO: put bin icon into split button instead
         let dropSongItems = document.querySelectorAll(".drop-from-collection");
@@ -32,6 +37,7 @@ songCollector = {
             let songId = item.dataset["id"];
             let requestData = {id: songId};
             let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
+            let placeId = dropdownButton.dataset.placeId;
             item.addEventListener("click", function (event) {
                 if (item.classList.contains("disabled")) {
                     event.stopPropagation();
@@ -39,16 +45,17 @@ songCollector = {
                     $.post(initPage.urls.removeSong, requestData, function () {
                         songCollector.setOriginalDropdownButton(dropdownButton);
                         songCollector.disableDropFromCollection(songId);
-                        // TODO: delete dropped song from collection tab
+                        songCollector.deleteSongFromCollectionTab(songId, placeId);
                     })
                 }
             })
         }
     },
-    changeDropdownButton: function (buttonElement, place) {
+    changeDropdownButton: function (buttonElement, place, placeId) {
         buttonElement.innerHTML = place;
         buttonElement.classList.remove("btn-success");
         buttonElement.classList.add("btn-info");
+        buttonElement.dataset.placeId = placeId;
     },
     setOriginalDropdownButton: function (buttonElement) {
         buttonElement.innerHTML = '<i class="fas fa-plus">&nbsp;</i>';
@@ -79,9 +86,9 @@ songCollector = {
             for (let item of collection) {
                 let songId = item["id"];
                 let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
-                songCollector.changeDropdownButton(dropdownButton, item["place"]);
+                songCollector.changeDropdownButton(dropdownButton, item["place"], item["placeId"]);
                 songCollector.enableDropFromCollection(songId);
-                songCollector.showSongOnCollectionTab(item["title"], item["placeId"]);
+                songCollector.showSongOnCollectionTab(item["title"], songId, item["placeId"]);
             }
         }
     }/*,
