@@ -28,8 +28,11 @@ span.disabled {
     cursor: not-allowed;
 }
 nav > div {
-    padding: 0 15px;
+    padding: 0 15px !important;
 }
 footer {
     text-align: center;
+}
+.collection-tab-row {
+    padding: 15px;
 }

@@ -4,11 +4,10 @@ import db_connection
 @db_connection.connection_handler
 def get_song_places(cursor):
     cursor.execute("""
-                    SELECT place FROM places
+                    SELECT * FROM places
                     """)
     query_result = cursor.fetchall()
-    list_of_places = [value for record in query_result for value in record.values()]
-    return list_of_places
+    return query_result
 
 
 @db_connection.connection_handler
