@@ -30,5 +30,5 @@ def zip_slides(list_of_slide_paths):
 
 def create_downloading_name():
     now = datetime.datetime.now()
-    file_name = f"slides_{now:%Y-%m-%d}_{now:%H꞉%M}.zip"
+    file_name = f"slides_{now:%Y-%m-%d}_{now:%H-%M}.zip"
     return file_name
