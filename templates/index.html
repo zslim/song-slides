@@ -5,6 +5,7 @@
 {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.amd.min.js"></script>#}
     <script src="{{ url_for("static", filename="scripts/init_page.js") }}" defer></script>
     <script src="{{ url_for("static", filename="scripts/collecting_songs.js") }}" defer></script>
+    <script src="{{ url_for("static", filename="scripts/downloader.js") }}" defer></script>
     <script src="{{ url_for("static", filename="scripts/main.js") }}" defer></script>
 {% endblock %}
 
@@ -20,8 +21,9 @@
              data-root-url="{{ root_url }}"
              data-add-song-url="{{ url_for("add_song_to_collection") }}"
              data-remove-song-url="{{ url_for("remove_song_from_collection") }}"
-             data-clear-collection-url="{{ url_for("clear_collection") }}">
-            <form action="{{ url_for("clear_collection") }}" method="post" class="clear-collection-button-frame">
+             data-clear-collection-url="{{ url_for("clear_collection") }}"
+             data-download-slides-url="{{ url_for("download_slides") }}">
+            <form action="{{ url_for("clear_collection") }}" method="post" class="button-frame">
                 <button class="btn btn-danger" type="submit" id="clear-collection-button">
                     Énekrend kiürítése
                 </button>
@@ -63,13 +65,20 @@
         </div>
         <div class="container tab-pane fade index-table-frame" id="collection-tab" role="tabpanel">
 {#            <p id="collection-placeholder">Még nincs dal az énekrendben</p>#}
+            <form action="{{ url_for("download_slides") }}" method="get"
+                  class="button-frame" id="download-button-container">
+                <button class="btn btn-success" id="download-slides-button" type="submit">Diák letöltése</button>
+            </form>
+
             {% for item in list_of_places %}
             <div class="card">
-                <div class="row collection-tab-row" id="{{ "collection-tab-row-" ~ item["id"] }}">
-                    <div class="collection-tab-place-col col-sm-6">{{ item["place"] }}:</div>
+                <div class="row no-gutters collection-tab-row" id="{{ "collection-tab-row-" ~ item["id"] }}">
+                    <div class="collection-tab-place-col col-sm-6">
+                        <div class="song-place-frame">{{ item["place"] }}:</div>
+                    </div>
                     <div class="collection-tab-song-col col-sm-6">
                         <div class="song-title-frame"></div>
-                    </div>
+                    </div> {# TODO: show book & song number #}
                 </div>
             </div>
             {% endfor %}

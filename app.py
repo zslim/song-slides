@@ -1,5 +1,7 @@
-from flask import Flask, render_template, make_response, jsonify, request, session, redirect, url_for
+from flask import Flask, render_template, make_response, jsonify, request, session, redirect, url_for, send_file
 import data_manager
+import utils
+import file_handler
 
 app = Flask(__name__)
 
@@ -19,7 +21,7 @@ def get_song_details(song_id):
 
 
 @app.route("/api/collection/add-song", methods=["POST"])
-def add_song_to_collection():
+def add_song_to_collection():  # TODO: if song on place exists then delete it first
     new_song_data = request.form.to_dict()
     if "collection" not in session:
         session["collection"] = [new_song_data]
@@ -42,6 +44,19 @@ def clear_collection():
     if "collection" in session:
         session.pop("collection")
     return redirect(url_for("index"))
+
+
+@app.route("/api/download-slides")
+def download_slides():
+    if "collection" not in session:
+        return make_response("No song selected", 404)
+    else:
+        ordered_collection = utils.sort_list_of_dicts(session["collection"], "placeId")
+        tuple_of_song_ids = utils.get_values_of_identical_keys(ordered_collection, "id")
+        slide_paths = data_manager.get_slide_paths_by_song_id(tuple_of_song_ids)
+        path_of_zipfile = file_handler.zip_slides(slide_paths)
+        return send_file(path_of_zipfile, as_attachment=True, attachment_filename="slides.zip")
+        # TODO: give different name to the downloaded file
 
 
 if __name__ == '__main__':

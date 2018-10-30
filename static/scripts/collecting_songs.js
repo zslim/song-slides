@@ -26,7 +26,7 @@ songCollector = {
         let songTitleFrame = document.querySelector(`#collection-tab-row-${placeId} .song-title-frame`);
         songTitleFrame.innerText = songTitle;
     },
-    initDropSongItems: function () {
+    initDropSongItems: function () {  // TODO: put bin icon into split button instead
         let dropSongItems = document.querySelectorAll(".drop-from-collection");
         for (let item of dropSongItems) {
             let songId = item.dataset["id"];
@@ -39,6 +39,7 @@ songCollector = {
                     $.post(initPage.urls.removeSong, requestData, function () {
                         songCollector.setOriginalDropdownButton(dropdownButton);
                         songCollector.disableDropFromCollection(songId);
+                        // TODO: delete dropped song from collection tab
                     })
                 }
             })

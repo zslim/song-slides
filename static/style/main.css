@@ -5,6 +5,9 @@ h1 {
     text-align: center;
     margin: 20px auto;
 }
+.tab-content {
+    margin: 15px;
+}
 .index-table-frame {
     padding: 15px;
 }
@@ -18,7 +21,7 @@ h1 {
     display: flex;
     align-items: center;
 }
-form.clear-collection-button-frame {
+form.button-frame, div#download-button-container {
     margin: 10px auto;
 }
 span.dropdown-item {
@@ -33,6 +36,6 @@ nav > div {
 footer {
     text-align: center;
 }
-.collection-tab-row {
+.song-place-frame, .song-title-frame {
     padding: 15px;
 }

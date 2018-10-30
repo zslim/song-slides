@@ -1,4 +1,4 @@
-import os, os.path
+import os
 import zipfile
 
 
@@ -21,7 +21,7 @@ def zip_slides(list_of_slide_paths):
 
     with zipfile.ZipFile(path_of_zipfile, "w") as temporary_zip:
         for (index, path) in enumerate(list_of_slide_paths):
-            name_in_zip = f"alma{index + 1:04}.jpg"
+            name_in_zip = f"alma{index + 1:04}.png"
             temporary_zip.write(path, arcname=name_in_zip)
 
     return path_of_zipfile

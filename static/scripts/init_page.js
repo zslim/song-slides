@@ -6,6 +6,7 @@ initPage = {
         initPage.urls["addSong"] = songsFrame.dataset["addSongUrl"];
         initPage.urls["removeSong"] = songsFrame.dataset["removeSongUrl"];
         initPage.urls["clearCollection"] = songsFrame.dataset["clearCollectionUrl"];
+        initPage.urls["downloadSlides"] = songsFrame.dataset["downloadSlidesUrl"];
     },
     getSongDetails: function (songId, callback) {
         let apiUrl = `${initPage.urls["root"]}api/song-details/${songId}`;

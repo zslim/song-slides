@@ -7,12 +7,11 @@ def strip_newlines_from_edges(string):
     return stripped_from_both
 
 
-def flatten_list(nested_list):
-    flat_list = []
-    for element in nested_list:
-        if isinstance(element, list):
-            for item in element:
-                flat_list.append(item)
-        else:
-            flat_list.append(element)
-    return flat_list
+def get_values_of_identical_keys(list_of_dicts, key):
+    values = [dictionary[key] for dictionary in list_of_dicts]
+    return tuple(values)
+
+
+def sort_list_of_dicts(list_of_dicts, key):
+    sorted_list = sorted(list_of_dicts, key=lambda k: int(k[key]))
+    return sorted_list
