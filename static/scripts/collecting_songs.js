@@ -13,7 +13,7 @@ songCollector = {
             let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
             let place = item.innerText;
             item.addEventListener("click", function () {
-                let songInfo = {id: songId, place: place};
+                let songInfo = {id: songId, title: songTitle, placeId: placeId, place: place};
                 $.post(initPage.urls["addSong"], songInfo, function () {
                     songCollector.enableDropFromCollection(songId);
                     songCollector.changeDropdownButton(dropdownButton, place);
@@ -23,7 +23,7 @@ songCollector = {
         }
     },
     showSongOnCollectionTab: function (songTitle, placeId) {
-        let songTitleFrame = document.querySelector(`#collection-tab-row-${placeId} > .collection-tab-song-col`);
+        let songTitleFrame = document.querySelector(`#collection-tab-row-${placeId} .song-title-frame`);
         songTitleFrame.innerText = songTitle;
     },
     initDropSongItems: function () {
@@ -80,6 +80,7 @@ songCollector = {
                 let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
                 songCollector.changeDropdownButton(dropdownButton, item["place"]);
                 songCollector.enableDropFromCollection(songId);
+                songCollector.showSongOnCollectionTab(item["title"], item["placeId"]);
             }
         }
     }/*,

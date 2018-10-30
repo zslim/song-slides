@@ -45,9 +45,7 @@
                                 {% for item in list_of_places %}
                                 <span class="dropdown-item add-to-collection"
                                       data-id="{{ song_id }}" data-title="{{ dict_of_song["title"] }}"
-                                      data-place-id="{{ item["id"] }}">
-                                    {{ item["place"] }}
-                                </span>
+                                      data-place-id="{{ item["id"] }}">{{ item["place"] }}</span>
                                 {% endfor %}
                                 <div class="dropdown-divider"></div>
                                 <span class="dropdown-item disabled drop-from-collection" id="{{ "drop-song-" ~ song_id }}"
@@ -69,7 +67,9 @@
             <div class="card">
                 <div class="row collection-tab-row" id="{{ "collection-tab-row-" ~ item["id"] }}">
                     <div class="collection-tab-place-col col-sm-6">{{ item["place"] }}:</div>
-                    <div class="collection-tab-song-col col-sm-6">Dal címe</div>
+                    <div class="collection-tab-song-col col-sm-6">
+                        <div class="song-title-frame"></div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
