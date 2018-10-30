@@ -8,48 +8,58 @@
 {% endblock %}
 
 {% block content %}
-    {{ session["collection"] }}
-    <div class="container index-table-frame"
-         data-root-url="{{ root_url }}"
-         data-add-song-url="{{ url_for("add_song_to_collection") }}"
-         data-remove-song-url="{{ url_for("remove_song_from_collection") }}"
-         data-clear-collection-url="{{ url_for("clear_collection") }}">
-        <form action="{{ url_for("clear_collection") }}" method="post" class="clear-collection-button-frame">
-            <button class="btn btn-danger" type="submit" id="clear-collection-button">
-                Énekrend kiürítése
-            </button>
-        </form>
+    <nav>
+        <div class="container nav nav-tabs" role="tablist">
+            <a href="#songs-tab" class="nav-item nav-link flex-sm-fill text-sm-center active" data-toggle="tab" role="tab">Dalok</a>
+            <a href="#collection-tab" class="nav-item nav-link flex-sm-fill text-sm-center" data-toggle="tab" role="tab">Énekrend</a>
+        </div>
+    </nav>
+    <div class="tab-content">
+        <div class="container index-table-frame tab-pane fade show active" id="songs-tab" role="tabpanel"
+             data-root-url="{{ root_url }}"
+             data-add-song-url="{{ url_for("add_song_to_collection") }}"
+             data-remove-song-url="{{ url_for("remove_song_from_collection") }}"
+             data-clear-collection-url="{{ url_for("clear_collection") }}">
+            <form action="{{ url_for("clear_collection") }}" method="post" class="clear-collection-button-frame">
+                <button class="btn btn-danger" type="submit" id="clear-collection-button">
+                    Énekrend kiürítése
+                </button>
+            </form>
 
-        {% for dict_of_song in list_of_songs %}
-            {% set song_id = dict_of_song["id"] %}
-            <div class="card" id="{{ "song-" ~ song_id ~ "-card" }}">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="song-title flex-grow-1 collapsed vertically-centered"
-                         data-toggle="collapse" data-target="{{ "#song-" ~ song_id ~ "-details" }}"
-                         data-id="{{ song_id }}">
-                        <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle choose-song-place-button" type="button"
-                                data-toggle="dropdown" id="{{ "song-" ~ song_id ~ "-dropdown-button" }}">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            {% for item in list_of_places %}
-                            <span class="dropdown-item add-to-collection" data-id="{{ song_id }}">{{ item }}</span>
-                            {% endfor %}
-                            <div class="dropdown-divider"></div>
-                            <span class="dropdown-item disabled drop-from-collection" id="{{ "drop-song-" ~ song_id }}"
-                                  data-id="{{ song_id }}">Kiválasztás törlése</span>
+            {% for dict_of_song in list_of_songs %}
+                {% set song_id = dict_of_song["id"] %}
+                <div class="card" id="{{ "song-" ~ song_id ~ "-card" }}">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="song-title flex-grow-1 collapsed vertically-centered"
+                             data-toggle="collapse" data-target="{{ "#song-" ~ song_id ~ "-details" }}"
+                             data-id="{{ song_id }}">
+                            <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-success dropdown-toggle choose-song-place-button" type="button"
+                                    data-toggle="dropdown" id="{{ "song-" ~ song_id ~ "-dropdown-button" }}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                {% for item in list_of_places %}
+                                <span class="dropdown-item add-to-collection" data-id="{{ song_id }}">{{ item }}</span>
+                                {% endfor %}
+                                <div class="dropdown-divider"></div>
+                                <span class="dropdown-item disabled drop-from-collection" id="{{ "drop-song-" ~ song_id }}"
+                                      data-id="{{ song_id }}">Kiválasztás törlése</span>
 
+                            </div>
                         </div>
                     </div>
+                    <div class="card-body song-details collapse" id="{{ "song-" ~ song_id ~ "-details" }}">
+                        <div class="song-details-book"><p></p></div>
+                        <div class="song-details-lyrics"></div>
+                    </div>
                 </div>
-                <div class="card-body song-details collapse" id="{{ "song-" ~ song_id ~ "-details" }}">
-                    <div class="song-details-book"><p></p></div>
-                    <div class="song-details-lyrics"></div>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="container tab-pane fade index-table-frame" id="collection-tab" role="tabpanel">
+            <p>Még nincs dal az énekrendben</p>
+        </div>
     </div>
 {% endblock %}

@@ -27,3 +27,9 @@ span.dropdown-item {
 span.disabled {
     cursor: not-allowed;
 }
+nav > div {
+    padding: 0 15px;
+}
+footer {
+    text-align: center;
+}
