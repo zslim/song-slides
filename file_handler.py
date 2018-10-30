@@ -1,5 +1,6 @@
 import os
 import zipfile
+import datetime
 
 
 def create_temporary_filename(directory_path, extension, with_path=True):
@@ -25,3 +26,9 @@ def zip_slides(list_of_slide_paths):
             temporary_zip.write(path, arcname=name_in_zip)
 
     return path_of_zipfile
+
+
+def create_downloading_name():
+    now = datetime.datetime.now()
+    file_name = f"slides_{now:%Y-%m-%d}_{now:%H꞉%M}.zip"
+    return file_name

@@ -55,8 +55,8 @@ def download_slides():
         tuple_of_song_ids = utils.get_values_of_identical_keys(ordered_collection, "id")
         slide_paths = data_manager.get_slide_paths_by_song_id(tuple_of_song_ids)
         path_of_zipfile = file_handler.zip_slides(slide_paths)
-        return send_file(path_of_zipfile, as_attachment=True, attachment_filename="slides.zip")
-        # TODO: give different name to the downloaded file
+        file_name = file_handler.create_downloading_name()
+        return send_file(path_of_zipfile, as_attachment=True, attachment_filename=file_name)
 
 
 if __name__ == '__main__':
