@@ -40,7 +40,7 @@ def create_new_slides():
 
             path_of_slide = f"static/images/slides/song_{dict_of_song['id']}_slide_{current_slide['slide_number']}.png"
             draw_slide(fancy_text, path_to_save=path_of_slide, **slide_arguments)
-
+            # TODO: check if png is compatible with the projector
             slide_data = {"song_id": current_slide["song_id"],
                           "slide_number": current_slide["slide_number"],
                           "path": path_of_slide}
