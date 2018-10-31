@@ -16,8 +16,15 @@ def index():
 
 @app.route("/api/song-details/<song_id>")
 def get_song_details(song_id):
-    song_details = data_manager.get_song_details(song_id)
+    song_details = data_manager.get_song_lyrics(song_id)
+    song_details["index_data"] = data_manager.get_song_index_details(song_id)
     return jsonify(**song_details)
+
+
+@app.route("/api/song-index-data/<song_id>")
+def get_song_index_details(song_id):
+    index_data = data_manager.get_song_index_details(song_id)
+    return jsonify(index_data)
 
 
 @app.route("/api/collection/add-song", methods=["POST"])
@@ -27,11 +34,13 @@ def add_song_to_collection():
         session["collection"] = [new_song_data]
     elif new_song_data["place"] == "Áldozás":
         session["collection"].append(new_song_data)
-    else:  # TODO: set original button if song dropped from session below
+    else:
+        # TODO: if a song gets implicitly deleted because another song is selected on its place, it should be deleted from the collection pane & original button should be set on song browser pane
         session["collection"][:] = [song for song in session["collection"] if song["id"] != new_song_data["id"] and song["placeId"] != new_song_data["placeId"]]
         session["collection"].append(new_song_data)
     session.modified = True
-    return make_response("Choice has been saved", 200)
+    index_data_for_song = {"index_data": data_manager.get_song_index_details(new_song_data["id"])}
+    return jsonify(index_data_for_song)
 
 
 @app.route("/api/collection/remove-song", methods=["POST"])

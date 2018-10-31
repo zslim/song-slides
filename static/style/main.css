@@ -39,3 +39,9 @@ footer {
 .song-place-frame, .song-title-frame {
     padding: 15px;
 }
+.song-title-card {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid grey;
+    margin: 3px auto;
+}

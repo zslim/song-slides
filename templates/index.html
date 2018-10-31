@@ -2,7 +2,7 @@
 
 
 {% block head %}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.amd.min.js"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js" defer></script>
     <script src="{{ url_for("static", filename="scripts/init_page.js") }}" defer></script>
     <script src="{{ url_for("static", filename="scripts/collecting_songs.js") }}" defer></script>
     <script src="{{ url_for("static", filename="scripts/downloader.js") }}" defer></script>
@@ -57,14 +57,15 @@
                         </div>
                     </div>
                     <div class="card-body song-details collapse" id="{{ "song-" ~ song_id ~ "-details" }}">
-                        <div class="song-details-book"><p></p></div>
-                        <div class="song-details-lyrics"></div>
+                        <div class="row">
+                            <div class="song-details-lyrics col-sm-8"></div>
+                            <div class="song-details-book col-sm-4"><p></p></div>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
         <div class="container tab-pane fade index-table-frame" id="collection-tab" role="tabpanel">
-{#            <p id="collection-placeholder">Még nincs dal az énekrendben</p>#}
             <form action="{{ url_for("download_slides") }}" method="get"
                   class="button-frame" id="download-button-container">
                 <button class="btn btn-success" id="download-slides-button" type="submit">Diák letöltése</button>
@@ -84,13 +85,21 @@
             {% endfor %}
         </div>
     </div>
-    {#TODO: implement choosing option between regular and custom énekrend#}
-    {#
-    <script id="selected-song-template" type="text/x-handlebars-template">
-        <div class="row">
-            <div class="collection-tab-place-col col-md-6">{{ place }}</div>
-            <div class="collection-tab-song-col col-md-6">{{ song_title }}</div>
+    {# TODO: implement choosing option between regular and custom énekrend #}
+    <script id="song-title-card-template" type="text/x-handlebars-template">
+        {% raw %}
+        <div class="song-title-card d-flex justify-content-between"
+             id="song-{{ song_id }}-on-place-{{ place_id }}">
+            <p>{{song_title}}</p>
+            <select class="custom-select" name="index-record">
+                {{#each index_records}}
+                <option>{{short_name}} {{song_number}}</option>
+                {{/each}}
+            </select>
+            <button type="button" class="close drop-form-collection-x" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+        {% endraw %} {# TODO: make card pretty (select is ruining it) #}
     </script>
-    #}
 {% endblock %}

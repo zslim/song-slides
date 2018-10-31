@@ -14,18 +14,19 @@ songCollector = {
             let place = item.innerText;
             item.addEventListener("click", function () {
                 let songInfo = {id: songId, title: songTitle, placeId: placeId, place: place};
-                $.post(initPage.urls["addSong"], songInfo, function () {
+                $.post(initPage.urls["addSong"], songInfo, function (data) {
                     songCollector.enableDropFromCollection(songId);
                     songCollector.changeDropdownButton(dropdownButton, place, placeId);
-                    songCollector.showSongOnCollectionTab(songTitle, songId, placeId);
+                    songCollector.showSongOnCollectionTab(songTitle, songId, placeId, data);
                 });
             })
         }
     },
-    showSongOnCollectionTab: function (songTitle, songId, placeId) {
+    showSongOnCollectionTab: function (songTitle, songId, placeId, indexData) {
+        let songData = {song_id: songId, song_title: songTitle, place_id: placeId, index_data: indexData["index_data"]};
         let songTitleFrame = document.querySelector(`#collection-tab-row-${placeId} .song-title-frame`);
-        songTitleFrame.innerText = songTitle;
-        songTitleFrame.id = `song-${songId}-on-place-${placeId}`;
+        let newSongHTML = songCollector.renderSelectedSongTemplate(songData);
+        songTitleFrame.innerHTML = newSongHTML;
     },
     deleteSongFromCollectionTab: function (songId, placeId) {
         let divToEmpty = document.querySelector(`#song-${songId}-on-place-${placeId}`);
@@ -88,15 +89,19 @@ songCollector = {
                 let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
                 songCollector.changeDropdownButton(dropdownButton, item["place"], item["placeId"]);
                 songCollector.enableDropFromCollection(songId);
-                songCollector.showSongOnCollectionTab(item["title"], songId, item["placeId"]);
+                $.get(initPage.urls.root + `api/song-index-data/${songId}`, function (data) {
+                    songCollector.showSongOnCollectionTab(item["title"], songId, item["placeId"], data);
+                })
+
             }
         }
-    }/*,
-    renderSelectedSongTemplate: function (songTitle, place) {
-        let context = {place: place, song_title: songTitle};
-        let templateSource = document.querySelector("#selected-song-template").innerHTML;
+    },
+    renderSelectedSongTemplate: function (data) {
+        let context = {song_id: data["song_id"], song_title: data["song_title"],
+                       place_id: data["place_id"], index_records: data["index_data"]};
+        let templateSource = document.querySelector("#song-title-card-template").innerHTML;
         let template = Handlebars.compile(templateSource);
         let rowHtml = template(context);
         return rowHtml;
-    }*/
+    }
 };
