@@ -28,6 +28,7 @@
                     Énekrend kiürítése
                 </button>
             </form>
+            <p>{{ session["collection"] }}</p>
 
             {% for dict_of_song in list_of_songs %}
                 {% set song_id = dict_of_song["id"] %}
@@ -38,7 +39,7 @@
                              data-id="{{ song_id }}">
                             <i class="chevron fa fa-fw"></i> {{ dict_of_song["title"] }}
                         </div>
-                        <div class="dropdown">
+                        <div class="dropdown" data-song-id="{{ song_id }}" data-song-title="{{ dict_of_song["title"] }}">
                             <button class="btn btn-success dropdown-toggle choose-song-place-button" type="button"
                                     data-toggle="dropdown" id="{{ "song-" ~ song_id ~ "-dropdown-button" }}">
                                 <i class="fas fa-plus"></i>
@@ -46,7 +47,6 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 {% for item in list_of_places %}
                                 <span class="dropdown-item add-to-collection"
-                                      data-id="{{ song_id }}" data-title="{{ dict_of_song["title"] }}"
                                       data-place-id="{{ item["id"] }}">{{ item["place"] }}</span>
                                 {% endfor %}
                                 <div class="dropdown-divider"></div>

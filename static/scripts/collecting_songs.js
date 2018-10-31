@@ -7,8 +7,8 @@ songCollector = {
     initSongPlaceItems: function () {
         let songPlaceItems = document.querySelectorAll(".add-to-collection");
         for (let item of songPlaceItems) {
-            let songId = item.dataset["id"];
-            let songTitle = item.dataset["title"];
+            let songId = item.parentNode.parentNode.dataset["songId"];
+            let songTitle = item.parentNode.parentNode.dataset["songTitle"];
             let placeId = item.dataset["placeId"];
             let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
             let place = item.innerText;
