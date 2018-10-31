@@ -14,9 +14,13 @@ initPage = {
     },
     showSongDetails: function (data) {
         let bookInfoDiv = document.querySelector(`#song-${data["song_id"]}-details .song-details-book p`);
-        let lyricsDiv = document.querySelector(`#song-${data["song_id"]}-details .song-details-lyrics`);
+        for (let indexRecord of data["index_data"]) {
+            let bookInfoParagraph = document.createElement("p");
+            bookInfoParagraph.innerText = `${indexRecord["short_name"]} könyv ${indexRecord["song_number"]}`;
+            bookInfoDiv.appendChild(bookInfoParagraph);
+        }
 
-        bookInfoDiv.innerText = `${data["title_of_book"]} (${data["short_name"]} könyv) ${data["song_number"]}`;
+        let lyricsDiv = document.querySelector(`#song-${data["song_id"]}-details .song-details-lyrics`);
         lyricsDiv.innerText = data["lyrics"];
     },
     initSongDetails: function () {

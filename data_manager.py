@@ -61,14 +61,23 @@ def get_slide_paths_by_song_id(cursor, tuple_of_song_ids):
 
 
 @db_connection.connection_handler
-def get_song_details(cursor, song_id):
+def get_song_lyrics(cursor, song_id):
     cursor.execute("""
-                    SELECT songs.id AS song_id, songs.title, lyrics, b.title AS title_of_book, short_name, song_number
-                    FROM songs 
-                    JOIN book_index i on songs.id = i.song_id
-                    JOIN books b on i.book_id = b.id
-                    WHERE songs.id = %(song_id)s
+                    SELECT id AS song_id, title, lyrics FROM songs
+                    WHERE id = %(song_id)s;
                     """,
                    {"song_id": song_id})
     result = cursor.fetchone()
     return result
+
+
+@db_connection.connection_handler
+def get_song_index_details(cursor, song_id):
+    cursor.execute("""
+                    SELECT short_name, song_number
+                    FROM songs JOIN book_index i on songs.id = i.song_id JOIN books b on i.book_id = b.id
+                    WHERE songs.id = %(song_id)s;
+                    """,
+                   {"song_id": song_id})
+    records = cursor.fetchall()
+    return records
