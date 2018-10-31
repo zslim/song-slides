@@ -17,7 +17,7 @@ songCollector = {
                 $.post(initPage.urls["addSong"], songInfo, function () {
                     songCollector.enableDropFromCollection(songId);
                     songCollector.changeDropdownButton(dropdownButton, place, placeId);
-                    songCollector.showSongOnCollectionTab(songTitle, placeId);
+                    songCollector.showSongOnCollectionTab(songTitle, songId, placeId);
                 });
             })
         }
@@ -37,11 +37,11 @@ songCollector = {
             let songId = item.dataset["id"];
             let requestData = {id: songId};
             let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
-            let placeId = dropdownButton.dataset.placeId;
             item.addEventListener("click", function (event) {
                 if (item.classList.contains("disabled")) {
                     event.stopPropagation();
                 } else {
+                    let placeId = dropdownButton.dataset.placeId;
                     $.post(initPage.urls.removeSong, requestData, function () {
                         songCollector.setOriginalDropdownButton(dropdownButton);
                         songCollector.disableDropFromCollection(songId);

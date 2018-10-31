@@ -21,11 +21,14 @@ def get_song_details(song_id):
 
 
 @app.route("/api/collection/add-song", methods=["POST"])
-def add_song_to_collection():  # TODO: if song on place exists then delete it first
+def add_song_to_collection():
     new_song_data = request.form.to_dict()
     if "collection" not in session:
         session["collection"] = [new_song_data]
-    else:
+    elif new_song_data["place"] == "Áldozás":
+        session["collection"].append(new_song_data)
+    else:  # TODO: set original button if song dropped from session below
+        session["collection"][:] = [song for song in session["collection"] if song["id"] != new_song_data["id"] and song["placeId"] != new_song_data["placeId"]]
         session["collection"].append(new_song_data)
     session.modified = True
     return make_response("Choice has been saved", 200)
