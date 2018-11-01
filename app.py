@@ -39,7 +39,7 @@ def add_song_to_collection():
         session["collection"][:] = [song for song in session["collection"] if song["id"] != new_song_data["id"] and song["placeId"] != new_song_data["placeId"]]
         session["collection"].append(new_song_data)
     session.modified = True
-    index_data_for_song = {"index_data": data_manager.get_song_index_details(new_song_data["id"])}
+    index_data_for_song = data_manager.get_song_index_details(new_song_data["id"])
     return jsonify(index_data_for_song)
 
 

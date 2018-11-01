@@ -23,7 +23,7 @@ songCollector = {
         }
     },
     showSongOnCollectionTab: function (songTitle, songId, placeId, indexData) {
-        let songData = {song_id: songId, song_title: songTitle, place_id: placeId, index_data: indexData["index_data"]};
+        let songData = {song_id: songId, song_title: songTitle, place_id: placeId, index_data: indexData};
         let songTitleFrame = document.querySelector(`#collection-tab-row-${placeId} .song-title-frame`);
         let newSongHTML = songCollector.renderSelectedSongTemplate(songData);
         songTitleFrame.innerHTML = newSongHTML;
@@ -89,7 +89,7 @@ songCollector = {
                 let dropdownButton = document.querySelector(`#song-${songId}-dropdown-button`);
                 songCollector.changeDropdownButton(dropdownButton, item["place"], item["placeId"]);
                 songCollector.enableDropFromCollection(songId);
-                $.get(initPage.urls.root + `api/song-index-data/${songId}`, function (data) {
+                $.get(initPage.urls.root + `api/song-index-data/${songId}`, function (data) {  // TODO: index data don't get passed to function
                     songCollector.showSongOnCollectionTab(item["title"], songId, item["placeId"], data);
                 })
 
