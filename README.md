@@ -3,6 +3,11 @@
 This project is about developing an app for creating song lists and lyrics slides for the holy mass.
 On the main page you can choose songs for specific places of the list and you can download their slides az zipped pngs.
 
+## Some long term tasks
+
+* Aria attributes
+* Refactoring (with help if necessary)
+
 ## Things to think about
 
 * Deployment: what state is acceptable for deployment?
