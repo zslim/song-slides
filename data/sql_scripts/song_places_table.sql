@@ -1,3 +1,4 @@
+-- Haven't run this since I had to set up the whole environment again (Jan 2019) bc I don't remember if I really need this
 CREATE TABLE places (
   id int UNIQUE PRIMARY KEY,
   place varchar(25)
